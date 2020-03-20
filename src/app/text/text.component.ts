@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, Injector, OnDestroy, forwardRef, ElementRef, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, Injector, OnDestroy, forwardRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ControlContainer, AbstractControl } from '@angular/forms';
 
 @Component({
@@ -21,13 +21,13 @@ export class TextComponent implements ControlValueAccessor, OnInit, OnDestroy, A
   @Input() placeholder: string;
   @Input() readonly = false;
 
+  @Input() value: any;
+
   fieldvalue: any = null;
   control: AbstractControl;
 
   constructor(private injector: Injector,
-              private controlContainer: ControlContainer,
-              private _renderer: Renderer2,
-              private _elementRef: ElementRef) { }
+              private controlContainer: ControlContainer) { }
 
   ngOnInit() {
     if (this.controlContainer && this.formControlName) {
@@ -49,23 +49,9 @@ export class TextComponent implements ControlValueAccessor, OnInit, OnDestroy, A
 
   }
 
-  get value(): any {
-    console.log('text get: ' + this.fieldvalue);
-    return this.fieldvalue;
-  }
-
-  set value(value: any) {
-    if (value !== this.fieldvalue) {
-      this.fieldvalue = value;
-      this.onChange(value);
-      console.log('text set: ' + this.fieldvalue);
-    }
-  }
-
   writeValue(value: any) {
     this.fieldvalue = value;
     this.onChange(value);
-    this.control.setValue(value, {emitModelToViewChange: true});
     console.log('text write: ' + this.fieldvalue);
   }
 
