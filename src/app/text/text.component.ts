@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, AfterViewInit, Injector, OnDestroy, forwardRef} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, ControlContainer, AbstractControl } from '@angular/forms';
+import { Component, Input, OnInit, AfterViewInit, OnDestroy, forwardRef,
+  ViewChild, ElementRef} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ControlContainer, AbstractControl} from '@angular/forms';
 
 @Component({
   selector: 'text',
@@ -13,6 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ControlContainer, AbstractCont
     }
   ]
 })
+
 export class TextComponent implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
   @Input() formControlName: string;
   @Input() validationMessages: object = {};
@@ -20,14 +22,15 @@ export class TextComponent implements ControlValueAccessor, OnInit, OnDestroy, A
   @Input() hint: string;
   @Input() placeholder: string;
   @Input() readonly = false;
-
   @Input() value: any;
+
+  @ViewChild('textinput', { static: false}) elementRef: ElementRef;
 
   fieldvalue: any = null;
   control: AbstractControl;
 
-  constructor(private injector: Injector,
-              private controlContainer: ControlContainer) { }
+  constructor(private controlContainer: ControlContainer) {
+  }
 
   ngOnInit() {
     if (this.controlContainer && this.formControlName) {
@@ -37,33 +40,22 @@ export class TextComponent implements ControlValueAccessor, OnInit, OnDestroy, A
     }
   }
 
-  ngAfterViewInit() {
-
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-
-  }
-
-  ngOnDestroy(): void {
-
-  }
+  ngAfterViewInit() {  }
+  setDisabledState?(isDisabled: boolean): void {  }
+  ngOnDestroy(): void {  }
 
   writeValue(value: any) {
+
     this.fieldvalue = value;
+    if (this.elementRef) {
+        this.elementRef.nativeElement.value = value;
+    }
     this.onChange(value);
     console.log('text write: ' + this.fieldvalue);
   }
 
   onChange = (val: any) => { };
   onTouched = () => { };
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
+  registerOnChange(fn: any): void { this.onChange = fn; }
+  registerOnTouched(fn: any): void { this.onTouched = fn; }
 }
