@@ -6,8 +6,6 @@
   (submitForm)="onSubmit($event)"
   (resetForm)="onReset($event)" >
 
-  <h2>POC Form</h2>
-
   <input-text
     [formControlName]="'name'"
     label="Name"
@@ -29,6 +27,14 @@
     hint="Enter the description"
     placeholder="- select a make -">
   </input-select>
+
+  <div class="fill-field-space"></div>
+
+  <input-radio
+    [formControlName]="'type'"
+    [items]="types"
+    label="Type">
+  </input-radio>
 
 </edit-form>
 

@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ValidationMessagesComponent } from './components/validation-messages.component';
 import { InputTextComponent } from './components/input-text.component';
 import { InputSelectComponent } from './components/input-select.component';
-import { InputDateComponent } from './components/input-date.component';
+import { InputRadioComponent } from './components/input-radio.component';
 
 import { ControlStatusComponent } from './components/control-status.component';
 import { FormComponent } from './components/form/form.component';
@@ -26,7 +26,7 @@ import { FormstateComponent } from './components/formstate/formstate.component';
   declarations: [
                  InputTextComponent,
                  InputSelectComponent,
-                 InputDateComponent,
+                 InputRadioComponent,
                  ValidationMessagesComponent,
                  ControlStatusComponent,
                  FormComponent,
@@ -35,7 +35,7 @@ import { FormstateComponent } from './components/formstate/formstate.component';
   exports: [
             InputTextComponent,
             InputSelectComponent,
-            InputDateComponent,
+            InputRadioComponent,
             ValidationMessagesComponent,
             FormComponent
           ]

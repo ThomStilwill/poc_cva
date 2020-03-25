@@ -15,6 +15,11 @@ export class EditComponent implements OnInit {
     {value: 'dodge', viewValue: 'Dodge'},
     {value: 'toyota', viewValue: 'Toyota'},
   ];
+  types:  SelectItem[] = [
+    {value: 'mc', viewValue: 'Motorcycle'},
+    {value: 'auto', viewValue: 'Automobile'},
+    {value: 'lory', viewValue: 'Truck'},
+  ];
 
   constructor(private fb: FormBuilder) {
 
@@ -24,7 +29,8 @@ export class EditComponent implements OnInit {
                   Validators.maxLength(12)
                 ]],
       description: ['', Validators.required],
-      make: [null]
+      make: [null],
+      type: [null]
     });
 
     this.initModel();
@@ -37,7 +43,8 @@ export class EditComponent implements OnInit {
       {
         name: 'James T Kirk',
         description: 'The real captain.',
-        make: null
+        make: null,
+        type: null
       }
     );
   }

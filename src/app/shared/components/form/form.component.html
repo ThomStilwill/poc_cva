@@ -12,6 +12,7 @@
       <ng-content></ng-content>
     </div>
 
+    <br/>
     <div class="form-actions" *ngIf="!readonly">
       <button mat-button type="button" title="Cancel" (click)="reset()">
         <i class="material-icons">Reset</i>
@@ -21,7 +22,7 @@
         </button>
     </div>
 
+    <br/>
     <formstate *ngIf="debug" [formGroup]="formGroup"></formstate>
-
   </form>
 </div>
