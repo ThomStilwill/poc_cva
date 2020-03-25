@@ -297,8 +297,8 @@ input-date {
   padding: 6px 6px;
 
     label {
-      display: inline-block;
-      width: 120px;
+      display: inline!important;
+      margin-right: 30px;
     }
 
     [type=radio] {
