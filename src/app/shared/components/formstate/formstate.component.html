@@ -1,26 +1,33 @@
-<pre>{{formGroup.value | json}}</pre>
+<hr/>
+<br/>
 
-<table>
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Invalid</th>
-      <th>Dirty</th>
-      <th>Touched</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let key of keys">
-      <td>{{key}}</td>
-      <td>
-        <i *ngIf="formGroup.controls[key].invalid" class="material-icons">check</i>
-      </td>
-      <td>
-        <i *ngIf="formGroup.controls[key].dirty" class="material-icons">check</i>
-      </td>
-      <td>
-        <i *ngIf="formGroup.controls[key].touched" class="material-icons">check</i>
-      </td>
-    </tr>
-</tbody>
-</table>
+<div class="split-vertical">
+  <pre>{{formGroup.value | json}}</pre>
+</div>
+
+<div class="split-vertical">
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Invalid</th>
+        <th>Dirty</th>
+        <th>Touched</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let key of keys">
+        <td>{{key}}</td>
+        <td>
+          <i *ngIf="formGroup.controls[key].invalid" class="material-icons">X</i>
+        </td>
+        <td>
+          <i *ngIf="formGroup.controls[key].dirty" class="material-icons">X</i>
+        </td>
+        <td>
+          <i *ngIf="formGroup.controls[key].touched" class="material-icons">X</i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

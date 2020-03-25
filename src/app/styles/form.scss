@@ -301,37 +301,41 @@ input-date {
       margin-right: 30px;
     }
 
-    [type=radio] {
-      border: 0;
-      clip: rect(0 0 0 0);
-      height: 1px; margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
+    $circle-border-size: 0.096em;
+    $circle-size: 0.5em;
 
     [type=radio] + span::before {
       content: '';
       display: inline-block;
-      width: .7em;
-      height: .7em;
-      vertical-align: -0.25em;
-      border-radius: .7em;
-      border: 0.125em solid #fff;
-      box-shadow: 0 0 0 0.15em #000;
+      width: $circle-size;
+      height: $circle-size;
+      border-radius: $circle-size;
+
+      border: $circle-border-size solid #fff;
+      box-shadow: 0 0 0 $circle-border-size #000;
       margin-right: 0.75em;
       transition: 0.5s ease all;
     }
 
     [type=radio]:checked + span::before {
       background: #11488a;
-      box-shadow: 0 0 0 0.125em #000;
+      box-shadow: 0 0 0 $circle-border-size #000;
     }
 
     [type=radio]:checked:disabled + span::before {
       background: gray;
-      box-shadow: 0 0 0 0.125em #000;
+      box-shadow: 0 0 0 $circle-border-size #000;
+    }
+
+    [type=radio] {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      width: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
     }
 }
 
