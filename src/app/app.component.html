@@ -1,28 +1,7 @@
-<form [formGroup]="form">
+<h2>Edit POC</h2>
 
-  <h2>POC Form</h2>
+<a [routerLink]="['demo']" routerLinkActive="active-link">Demo</a>
 
-  <text
-    formControlName="name"
-    label="Name"
-    hint="Enter the name"
-    placeholder="any name...">
-  </text>
+<br/>
+<router-outlet></router-outlet>
 
-  <text
-    formControlName="description"
-    label="Description"
-    hint="Enter the description"
-    placeholder="any description will do...">
-  </text>
-
-  <br/>
-
-  <button type="button" (click)="reset()">
-    Reset
-  </button>
-
-  <button type="button" (click)="submit()">
-    Submit
-  </button>
-</form>

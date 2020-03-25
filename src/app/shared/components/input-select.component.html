@@ -1,0 +1,26 @@
+<div class="field">
+  <label [ngClass]="{'error': control && control.errors}">
+    <div class="labeltext">{{label}}</div>
+
+    <div class="inputblock">
+      <div class="select">
+          <select [(ngModel)]="_value"
+                  (input)="onChange($event.target.value)"
+                  (blur)="onTouched($event)">
+              <option disabled class="option-placeholder">{{placeholder}}</option>
+              <option *ngFor="let item of items" [value]="item.key">
+                {{ item.value }}
+              </option>
+          </select>
+
+      </div>
+
+      <div class="help-message">{{help}}</div>
+      <div class="validation-messages">
+        <validation-messages controlName="{{formControlName}}" [control]="control" label="{{label}}"
+          [validationMessages]="validationMessages">
+        </validation-messages>
+      </div>
+    </div>
+  </label>
+</div>

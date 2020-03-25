@@ -1,0 +1,25 @@
+
+<edit-form
+  [formGroup]="form"
+  title="Demo Form"
+  debug="true"
+  (submitForm)="onSubmit($event)"
+  (resetForm)="onReset($event)" >
+
+  <h2>POC Form</h2>
+
+  <input-text
+    formControlName="name"
+    label="Name"
+    hint="Enter the name"
+    placeholder="any name...">
+  </input-text>
+
+  <input-text
+    formControlName="description"
+    label="Description"
+    hint="Enter the description"
+    placeholder="any description will do...">
+  </input-text>
+</edit-form>
+
