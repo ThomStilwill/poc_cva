@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, forwardRef, OnDestroy, AfterViewInit, ElementRef, Renderer } from '@angular/core';
-import { AbstractControl, ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { FormService } from '../services/form-service';
+import { Component, Input, forwardRef, OnDestroy,  ElementRef, ViewChild, OnInit } from '@angular/core';
+import { ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControlDirective, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { FormService } from '../services/form-service';
 
 @Component({
-  selector: 'input-text[formControlName],input-text[formControl],input-text[ngModel]',
+  selector: 'input-text',
   templateUrl: './input-text.component.html',
   providers: [
     {
@@ -15,10 +15,12 @@ import { Subscription } from 'rxjs';
   ]
 })
 
-export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
+export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
     private subscriptions = new Subscription();
+    @Input() formControl: FormControl;
     @Input() formControlName: string;
+
     @Input() label: string;
     @Input() type = 'text';
     @Input() placeholder: string;
@@ -26,61 +28,38 @@ export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestr
     @Input() validationMessages: object = {};
     @Input() readonly = false;
 
-    fieldvalue: any = null;
-    control: AbstractControl;
+    @ViewChild(FormControlDirective, {static: true})  formControlDirective: FormControlDirective;
 
     constructor(private controlContainer: ControlContainer,
-                private formService: FormService,
-                private renderer: Renderer,
-                private elementRef: ElementRef) {
+                private formService: FormService) { }
+
+    get control() {
+      return this.formControl || this.controlContainer.control.get(this.formControlName);
     }
 
     ngOnInit() {
-        if (this.controlContainer && this.formControlName) {
-            this.control = this.controlContainer.control.get(this.formControlName);
-            this.subscriptions.add(this.formService.state$.subscribe(data => {
-              this.readonly = data === 'Read';
-            }));
-        } else {
-            console.warn('Missing FormControlName');
-        }
+      this.subscriptions.add(this.formService.state$.subscribe(data => {
+        this.readonly = data === 'Read';
+      }));
     }
 
-    ngAfterViewInit() {
-      setTimeout(() => {
-        //  this.matInput.ngControl = this.injector.get(NgControl, null);
-      });
-    }
     ngOnDestroy(): void {
       this.subscriptions.unsubscribe();
     }
 
-    get value(): any {
-      console.log('text get: ' + this.fieldvalue);
-      return this.fieldvalue;
-    }
-
-    set value(value: any) {
-      if (value !== this.fieldvalue) {
-        this.fieldvalue = value;
-        this.onChange(value);
-        console.log('text set: ' + this.fieldvalue);
-      }
-    }
-
     setDisabledState(isDisabled: boolean): void {
-      this.renderer.setElementProperty(this.elementRef.nativeElement, 'disabled',  isDisabled);
+      this.formControlDirective.valueAccessor.setDisabledState(isDisabled);
     }
 
     writeValue(value: any) {
-      this.fieldvalue = value;
-      this.onChange(value);
-      this.renderer.setElementProperty(this.elementRef.nativeElement, 'value', value);
-      console.log('text write: ' + this.fieldvalue);
+      this.formControlDirective.valueAccessor.writeValue(value);
     }
 
-    onChange = (val: any) => {};
-    onTouched = () => {};
-    registerOnChange(fn: any): void { this.onChange = fn; }
-    registerOnTouched(fn: any): void { this.onTouched = fn; }
+    registerOnChange(fn: any): void {
+      this.formControlDirective.valueAccessor.registerOnChange(fn);
+    }
+
+    registerOnTouched(fn: any): void {
+      this.formControlDirective.valueAccessor.registerOnTouched(fn);
+    }
 }

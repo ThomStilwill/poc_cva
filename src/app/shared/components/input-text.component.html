@@ -5,12 +5,9 @@
     <div class="inputblock">
       <div class="{{type}} inputcontrol">
         <input type="text"
+               [formControl]="control"
                placeholder="{{placeholder}}"
-               [readonly]="readonly"
-               [value]="fieldvalue"
-               (input)="onChange($event.target.value)"
-               (blur)="onTouched($event)"
-               (keyup)="onChange($event.target.value)">
+               [readonly]="readonly">
         <control-status [control]="control"></control-status>
       </div>
 

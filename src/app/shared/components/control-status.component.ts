@@ -1,23 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormService } from '../services/form-service';
-
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'control-status',
-  template: `<span class="control-status" *ngIf="debug">[{{status()}}]</span>`
+  template: `<span class="control-status" >[{{status()}}]</span>`
 })
 export class ControlStatusComponent {
 
   @Input() control: FormControl;
   debug: boolean;
 
-  constructor(private formService: FormService) {}
-
-  ngOnInit() {
-
-   }
+  constructor() {}
 
   status() {
     const control: FormControl = this.control;

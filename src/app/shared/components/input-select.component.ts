@@ -1,41 +1,74 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AbstractControl, ControlContainer, FormControlName } from '@angular/forms';
-import { AbstractValueAccessor, MakeProvider} from './abstract-value-accessor';
+import { Component, OnInit, Input, forwardRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, FormControlDirective } from '@angular/forms';
 import { SelectItem } from '../models/select-item';
+import { Subscription } from 'rxjs';
+import { FormService } from '../services/form-service';
 
 
 @Component({
   selector: 'input-select',
   templateUrl: './input-select.component.html',
-  providers: [MakeProvider(InputSelectComponent)]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputSelectComponent),
+      multi: true
+    }
+  ]
 })
 
-export class InputSelectComponent
-       extends AbstractValueAccessor<string>
-        implements OnInit {
+export class InputSelectComponent implements ControlValueAccessor, OnInit, OnDestroy  {
+
+    private subscriptions = new Subscription();
+    @Input() formControl: FormControl;
+    @Input() formControlName: string;
 
     @Input() label: string;
     @Input() items: Array<SelectItem>;
     @Input() placeholder: string;
     @Input() help: string;
     @Input() validationMessages: object = {};
+    @Input() readonly = false;
 
-    control: AbstractControl;
+    @ViewChild(FormControlDirective, {static: true})  formControlDirective: FormControlDirective;
+    value: string;
 
-    constructor (controlContainer: ControlContainer) {
-        super(controlContainer);
+    constructor(private controlContainer: ControlContainer,
+                private formService: FormService) { }
+
+    get control() {
+      return this.formControl || this.controlContainer.control.get(this.formControlName);
     }
 
     ngOnInit() {
-        if (this.controlContainer) {
-            if (this.formControlName) {
-                this.control = this.controlContainer.control.get(this.formControlName);
-            } else {
-                console.warn('Missing FormControlName');
-            }
+      this.subscriptions.add(this.formService.state$.subscribe(data => {
+        this.readonly = data === 'Read';
+        if (this.readonly) {
+          this.control.disable();
         } else {
-            console.warn('Missing FormControlName');
+          this.control.enable();
         }
+      }));
+    }
 
+    ngOnDestroy(): void {
+      this.subscriptions.unsubscribe();
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+      this.formControlDirective.valueAccessor.setDisabledState(isDisabled);
+    }
+
+    writeValue(value: any) {
+      this.value = value;
+      this.formControlDirective.valueAccessor.writeValue(value);
+    }
+
+    registerOnChange(fn: any): void {
+      this.formControlDirective.valueAccessor.registerOnChange(fn);
+    }
+
+    registerOnTouched(fn: any): void {
+      this.formControlDirective.valueAccessor.registerOnTouched(fn);
     }
 }

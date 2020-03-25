@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SelectItem } from 'src/app/shared/models/select-item';
 
 @Component({
   selector: 'app-edit',
@@ -8,6 +9,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class EditComponent implements OnInit {
   form: FormGroup;
+  makes: SelectItem[] = [
+    {value: 'ford', viewValue: 'Ford'},
+    {value: 'chevy', viewValue: 'Chevrolet'},
+    {value: 'dodge', viewValue: 'Dodge'},
+    {value: 'toyota', viewValue: 'Toyota'},
+  ];
 
   constructor(private fb: FormBuilder) {
 
@@ -16,7 +23,8 @@ export class EditComponent implements OnInit {
                   Validators.minLength(3),
                   Validators.maxLength(12)
                 ]],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      make: [null]
     });
 
     this.initModel();
@@ -28,7 +36,8 @@ export class EditComponent implements OnInit {
     this.form.setValue(
       {
         name: 'James T Kirk',
-        description: 'The real captain.'
+        description: 'The real captain.',
+        make: null
       }
     );
   }

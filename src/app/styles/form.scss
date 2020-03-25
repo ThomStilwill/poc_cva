@@ -82,6 +82,7 @@ form {
         -webkit-appearance: none;
       }
 
+
       .control-status {
         display: inline-block;
         width: 50px;
@@ -216,4 +217,9 @@ button:disabled {
 
 h3{
   margin-bottom: 10px;
+}
+
+
+input[readonly],select[readonly] only {
+  color: gray;
 }

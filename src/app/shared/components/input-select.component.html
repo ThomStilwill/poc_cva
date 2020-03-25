@@ -3,16 +3,20 @@
     <div class="labeltext">{{label}}</div>
 
     <div class="inputblock">
+
+      <!-- <div [hidden]="!readonly" class="{{type}} inputcontrol">
+        <input type="text"
+               [formControl]="control"
+               [value]="value"
+               readonly>
+      </div> -->
       <div class="select">
-          <select [(ngModel)]="_value"
-                  (input)="onChange($event.target.value)"
-                  (blur)="onTouched($event)">
+          <select [disabled]="readonly" [formControl]="control" >
               <option disabled class="option-placeholder">{{placeholder}}</option>
-              <option *ngFor="let item of items" [value]="item.key">
-                {{ item.value }}
+              <option *ngFor="let item of items" [value]="item.value">
+                {{ item.viewValue }}
               </option>
           </select>
-
       </div>
 
       <div class="help-message">{{help}}</div>

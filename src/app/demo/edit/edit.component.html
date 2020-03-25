@@ -9,17 +9,26 @@
   <h2>POC Form</h2>
 
   <input-text
-    formControlName="name"
+    [formControlName]="'name'"
     label="Name"
     hint="Enter the name"
     placeholder="any name...">
   </input-text>
 
   <input-text
-    formControlName="description"
+    [formControlName]="'description'"
     label="Description"
     hint="Enter the description"
     placeholder="any description will do...">
   </input-text>
+
+  <input-select
+    [formControlName]="'make'"
+    [items]="makes"
+    label="Makes"
+    hint="Enter the description"
+    placeholder="- select a make -">
+  </input-select>
+
 </edit-form>
 
