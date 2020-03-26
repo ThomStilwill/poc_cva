@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
   parentSubject = new Subject();
 
   @Input() formGroup: FormGroup;
-  @Input() title: string;
+  @Input() formTitle: string;
   @Input() debug = false;
   @Input() readonly = false;
   @Output() submitForm = new EventEmitter();

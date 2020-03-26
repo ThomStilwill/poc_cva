@@ -1,4 +1,6 @@
 $label-width: 8em;
+$circle-border-size: 0.096em;
+$circle-size: 0.5em;
 
 table.grid {
   width: 100%;
@@ -285,8 +287,6 @@ input-date {
   //margin: 0 10px;
 }
 
-
-
 .form-field-small{
   width: 145px;
   margin: 0 10px;
@@ -294,15 +294,12 @@ input-date {
 
 .radio-group {
   height: 40px;
-  padding: 6px 6px;
+  padding: 6px 0;
 
     label {
       display: inline!important;
       margin-right: 30px;
     }
-
-    $circle-border-size: 0.096em;
-    $circle-size: 0.5em;
 
     [type=radio] + span::before {
       content: '';
@@ -344,3 +341,58 @@ input-date {
   width: 100%;
 }
 
+.checkbox-label {
+  display: block;
+  position: relative;
+  margin: auto;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  clear: both;
+  padding-left: 30px;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+// unchecked box
+.checkbox-label .checkbox-custom {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 18px;
+  width: 18px;
+
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+//checked box
+.checkbox-label input:checked ~ .checkbox-custom {
+  border-radius: 5px;
+  -webkit-transform: rotate(0deg) scale(1);
+  -ms-transform: rotate(0deg) scale(1);
+  transform: rotate(0deg) scale(1);
+  opacity:1;
+  border: 2px solid black;
+}
+
+//check mark
+.checkbox-label input:checked ~ .checkbox-custom::after {
+  content: "\2713";
+  font-weight: bold;
+  color: #11488a;
+  position: absolute;
+  left: 1px;
+  top: -4px;
+  opacity:1;
+  background-color: transparent;
+}
+
+.checkbox-label input:checked:disabled ~ .checkbox-custom::after {
+  color: gray;
+}

@@ -10,13 +10,13 @@ import { SelectItem } from '../models/select-item';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputRadioComponent),
+      useExisting: forwardRef(() => InputCheckboxComponent),
       multi: true
     }
   ]
 })
 
-export class InputRadioComponent implements ControlValueAccessor, OnInit, OnDestroy  {
+export class InputCheckboxComponent implements ControlValueAccessor, OnInit, OnDestroy  {
 
     private subscriptions = new Subscription();
     @Input() formControlName: string;

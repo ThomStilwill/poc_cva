@@ -1,13 +1,15 @@
 <div class="field">
   <label [ngClass]="{'error': control && control.errors}">
-    <div class="labeltext">{{label}}</div>
-    <div class="inputblock">
-      <div class="radio-group">
-        <label *ngFor="let item of items" >
-          <input type="radio" value="{{item.value}}" name="{{formControlName}}" [formControl]="control">
-          <span>{{ item.viewValue }}</span>
+    <div class="labeltext"></div>
+    <div class="inputblock checkbox-container">
+        <label class="checkbox-label">
+          <input type="checkbox"
+                 name="{{formControlName}}"
+                 [formControl]="control">
+          <span class="checkbox-custom">
+          </span>
+          {{label}}
         </label>
-      </div>
     </div>
   </label>
 </div>

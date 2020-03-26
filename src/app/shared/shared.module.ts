@@ -11,8 +11,7 @@ import { ControlStatusComponent } from './components/control-status.component';
 import { FormComponent } from './components/form/form.component';
 import { FormService } from './services/form-service';
 import { FormstateComponent } from './components/formstate/formstate.component';
-
-
+import { InputCheckboxComponent } from './components/input-checkbox.component';
 
 @NgModule({
   imports: [
@@ -27,6 +26,7 @@ import { FormstateComponent } from './components/formstate/formstate.component';
                  InputTextComponent,
                  InputSelectComponent,
                  InputRadioComponent,
+                 InputCheckboxComponent,
                  ValidationMessagesComponent,
                  ControlStatusComponent,
                  FormComponent,
@@ -36,6 +36,7 @@ import { FormstateComponent } from './components/formstate/formstate.component';
             InputTextComponent,
             InputSelectComponent,
             InputRadioComponent,
+            InputCheckboxComponent,
             ValidationMessagesComponent,
             FormComponent
           ]

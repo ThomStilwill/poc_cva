@@ -30,7 +30,8 @@ export class EditComponent implements OnInit {
                 ]],
       description: ['', Validators.required],
       make: [null],
-      type: [null]
+      type: [null],
+      active: [null]
     });
 
     this.initModel();
@@ -44,7 +45,8 @@ export class EditComponent implements OnInit {
         name: 'Carroll Shelby',
         description: 'Designer of the AC Cobra.',
         make: null,
-        type: null
+        type: null,
+        active: true
       }
     );
   }

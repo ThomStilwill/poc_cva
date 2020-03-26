@@ -1,7 +1,6 @@
-
 <edit-form
   [formGroup]="form"
-  title="Demo Form"
+  formTitle="Demo Form"
   debug="true"
   (submitForm)="onSubmit($event)"
   (resetForm)="onReset($event)" >
@@ -36,5 +35,12 @@
     label="Type">
   </input-radio>
 
-</edit-form>
+  <div class="fill-field-space"></div>
 
+  <input-checkbox
+    [formControlName]="'active'"
+    label="Active"
+    hint="">
+  </input-checkbox>
+
+</edit-form>
