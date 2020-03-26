@@ -5,8 +5,8 @@ import { FormService } from '../services/form-service';
 import { SelectItem } from '../models/select-item';
 
 @Component({
-  selector: 'input-radio',
-  templateUrl: './input-radio.component.html',
+  selector: 'input-checkbox',
+  templateUrl: './input-checkbox.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -15,7 +15,7 @@ export class EditComponent implements OnInit {
     {value: 'dodge', viewValue: 'Dodge'},
     {value: 'toyota', viewValue: 'Toyota'},
   ];
-  types:  SelectItem[] = [
+  types: SelectItem[] = [
     {value: 'mc', viewValue: 'Motorcycle'},
     {value: 'auto', viewValue: 'Automobile'},
     {value: 'lory', viewValue: 'Truck'},
@@ -26,7 +26,7 @@ export class EditComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required,
                   Validators.minLength(3),
-                  Validators.maxLength(12)
+                  Validators.maxLength(18)
                 ]],
       description: ['', Validators.required],
       make: [null],
@@ -41,8 +41,8 @@ export class EditComponent implements OnInit {
    initModel() {
     this.form.setValue(
       {
-        name: 'James T Kirk',
-        description: 'The real captain.',
+        name: 'Carroll Shelby',
+        description: 'Designer of the AC Cobra.',
         make: null,
         type: null
       }

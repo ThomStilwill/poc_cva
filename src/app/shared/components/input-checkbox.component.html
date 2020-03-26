@@ -1,0 +1,13 @@
+<div class="field">
+  <label [ngClass]="{'error': control && control.errors}">
+    <div class="labeltext">{{label}}</div>
+    <div class="inputblock">
+      <div class="radio-group">
+        <label *ngFor="let item of items" >
+          <input type="radio" value="{{item.value}}" name="{{formControlName}}" [formControl]="control">
+          <span>{{ item.viewValue }}</span>
+        </label>
+      </div>
+    </div>
+  </label>
+</div>
