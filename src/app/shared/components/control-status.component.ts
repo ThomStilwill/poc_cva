@@ -13,12 +13,13 @@ export class ControlStatusComponent {
   constructor() {}
 
   status() {
-    const control: FormControl = this.control;
     let status = '';
-
-    status += control.touched ? 'T' : 't';
-    status += control.dirty ? 'D' : 'd';
-    status += control.valid ? 'V' : 'v';
+    const control: FormControl = this.control;
+    if (control){
+      status += control.touched ? 'T' : 't';
+      status += control.dirty ? 'D' : 'd';
+      status += control.valid ? 'V' : 'v';
+    }
     return status;
   }
 }

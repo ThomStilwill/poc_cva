@@ -16,8 +16,8 @@ import { InputCheckboxComponent } from './components/input-checkbox.component';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
                 FormService,

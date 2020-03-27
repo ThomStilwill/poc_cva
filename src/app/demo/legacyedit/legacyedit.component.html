@@ -1,1 +1,55 @@
-<p>legacyedit works!</p>
+<form name="legacy">
+
+<!-- <edit-form
+  [formGroup]="form"
+  formTitle="Demo Form"
+  debug="true"
+  (submitForm)="onSubmit($event)"
+  (resetForm)="onReset($event)" > -->
+
+  <!-- [ngModelOptions]="{standalone: true}" -->
+
+  <input-text
+    [(ngModel)]="model.name"
+    name="name"
+    label="Name"
+    placeholder="a cool name...">
+  </input-text>
+
+  <input-text
+    [(ngModel)]='model.description'
+    label="Description"
+    placeholder="any description will do...">
+  </input-text>
+
+  <input-select
+    [(ngModel)]='model.make'
+    [items]="makes"
+    label="Makes"
+    placeholder="- select a make -">
+  </input-select>
+
+  <button (click)="reset()">reset</button>
+
+  <!--
+  <div class="fill-field-space"></div>
+
+  <input-radio
+    [(ngModel)]='model.type'
+    [items]="types"
+    label="Type">
+  </input-radio>
+
+  <div class="fill-field-space"></div>
+
+  <input-checkbox
+    [(ngModel)]='model.active'
+    label="Active"
+    hint="">
+  </input-checkbox> -->
+
+<!-- </edit-form> -->
+
+  <pre>{{model | json}}</pre>
+
+</form>

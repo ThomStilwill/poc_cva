@@ -5,9 +5,12 @@
     <div class="inputblock">
       <div class="{{type}} inputcontrol">
         <input type="text"
-               [formControl]="control"
+               [(ngModel)]="value"
                placeholder="{{placeholder}}"
-               [readonly]="readonly">
+               [readonly]="readonly"
+               (change)="onChange($event.target.value)"
+               (keyup)="onChange($event.target.value)"
+               >
         <control-status [control]="control"></control-status>
       </div>
 
