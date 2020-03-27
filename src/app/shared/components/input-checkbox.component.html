@@ -4,8 +4,9 @@
     <div class="inputblock checkbox-container">
         <label class="checkbox-label">
           <input type="checkbox"
+                 [(ngModel)]="value"
                  name="{{formControlName}}"
-                 [formControl]="control">
+                 [disabled]="readonly">
           <span class="checkbox-custom">
           </span>
           {{label}}
