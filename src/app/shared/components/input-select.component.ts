@@ -54,6 +54,9 @@ export class InputSelectComponent implements ControlValueAccessor, OnInit, OnDes
         }
       }));
     }
+    ngOnDestroy(): void {
+      this.subscriptions.unsubscribe();
+    }
 
     get control() {
       return this.formControl || this.controlContainer.control.get(this.formControlName);
@@ -80,24 +83,6 @@ export class InputSelectComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
 
-    ngOnDestroy(): void {
-      this.subscriptions.unsubscribe();
-    }
 
-    // setDisabledState(isDisabled: boolean): void {
-    //   this.formControlDirective.valueAccessor.setDisabledState(isDisabled);
-    // }
 
-    // writeValue(value: any) {
-    //   this.value = value;
-    //   this.formControlDirective.valueAccessor.writeValue(value);
-    // }
-
-    // registerOnChange(fn: any): void {
-    //   this.formControlDirective.valueAccessor.registerOnChange(fn);
-    // }
-
-    // registerOnTouched(fn: any): void {
-    //   this.formControlDirective.valueAccessor.registerOnTouched(fn);
-    // }
 }

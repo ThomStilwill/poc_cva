@@ -37,15 +37,17 @@
 
   <button (click)="reset()">reset</button>
 
-  <!--
+
   <div class="fill-field-space"></div>
 
   <input-radio
     [(ngModel)]='model.type'
+    name="types"
     [items]="types"
     label="Type">
   </input-radio>
 
+  <!--
   <div class="fill-field-space"></div>
 
   <input-checkbox

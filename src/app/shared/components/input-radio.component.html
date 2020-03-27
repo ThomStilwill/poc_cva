@@ -4,7 +4,11 @@
     <div class="inputblock">
       <div class="radio-group">
         <label *ngFor="let item of items" >
-          <input type="radio" value="{{item.value}}" name="{{formControlName}}" [formControl]="control">
+          <input type="radio"
+                 [disabled]="readonly"
+                 [(ngModel)]="value"
+                 value="{{item.value}}"
+                 name="{{formControlName}}">
           <span>{{ item.viewValue }}</span>
         </label>
       </div>

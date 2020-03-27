@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, forwardRef, OnDestroy } from '@angular/core';
-import { ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor, AbstractControl } from '@angular/forms';
+import { Component, OnInit, Input, forwardRef, OnDestroy, Injector, ViewChild } from '@angular/core';
+import { ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, NgControl, FormControlDirective } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FormService } from '../services/form-service';
 import { SelectItem } from '../models/select-item';
@@ -19,6 +19,7 @@ import { SelectItem } from '../models/select-item';
 export class InputRadioComponent implements ControlValueAccessor, OnInit, OnDestroy  {
 
     private subscriptions = new Subscription();
+    @Input() formControl: FormControl;
     @Input() formControlName: string;
 
     @Input() label: string;
@@ -27,39 +28,57 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnDest
     @Input() help: string;
     @Input() readonly = false;
 
-    fieldvalue: any = null;
-    control: AbstractControl;
+    @ViewChild(FormControlDirective, {static: true})  formControlDirective: FormControlDirective;
+    @Input('value') _value;
 
-    constructor(private controlContainer: ControlContainer,
+    constructor(private injector: Injector,
+                private controlContainer: ControlContainer,
                 private formService: FormService) { }
 
     ngOnInit() {
-      if (this.controlContainer && this.formControlName) {
-        this.control = this.controlContainer.control.get(this.formControlName);
-        this.subscriptions.add(this.formService.state$.subscribe(data => {
-          this.readonly = data === 'Read';
-          if (this.readonly) {
-            this.control.disable();
-          } else {
-            this.control.enable();
-          }
-        }));
+      const ngControl: NgControl = this.injector.get(NgControl, null);
+      if (ngControl) {
+        this.formControl = ngControl.control as FormControl;
       } else {
-        console.warn('Missing FormControlName');
+        // Component is missing form control binding
       }
+
+      this.subscriptions.add(this.formService.state$.subscribe(data => {
+        this.readonly = data === 'Read';
+        if (this.readonly) {
+          this.control.disable();
+        } else {
+          this.control.enable();
+        }
+      }));
     }
 
     ngOnDestroy(): void {
       this.subscriptions.unsubscribe();
     }
 
-    onChange = (_) => {};
-    onTouched = () => {};
-    registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }
-    registerOnTouched(fn: () => void): void { this.onTouched = fn; }
-
-    writeValue(value: any) {
-      this.fieldvalue = value;
-      this.onChange(value);
+    get control() {
+      return this.formControl || this.controlContainer.control.get(this.formControlName);
     }
+
+    get value() {
+      return this._value;
+    }
+
+    set value(val) {
+      this._value = val;
+      this.onChange(val);
+      this.onTouched();
+    }
+
+    onChange: any = () => {};
+    onTouched: any = () => {};
+    registerOnChange(fn) { this.onChange = fn; }
+    registerOnTouched(fn) { this.onTouched = fn; }
+    writeValue(value) {
+      if (value !== undefined) {
+        this._value = value;
+      }
+    }
+
 }
