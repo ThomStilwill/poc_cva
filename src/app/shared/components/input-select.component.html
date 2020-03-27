@@ -5,7 +5,7 @@
     <div class="inputblock">
 
       <div class="select">
-          <select [disabled]="readonly" [formControl]="control" >
+          <select [disabled]="readonly" [(ngModel)]="value" >
               <option disabled class="option-placeholder">{{placeholder}}</option>
               <option *ngFor="let item of items" [value]="item.value">
                 {{ item.viewValue }}

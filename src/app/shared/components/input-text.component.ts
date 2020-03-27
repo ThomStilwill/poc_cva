@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, OnDestroy, ViewChild, OnInit, AfterViewInit, Injector } from '@angular/core';
+import { Component, Input, forwardRef, OnDestroy, ViewChild, OnInit, Injector } from '@angular/core';
 import { ControlContainer, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControlDirective, FormControl, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FormService } from '../services/form-service';
@@ -15,7 +15,7 @@ import { FormService } from '../services/form-service';
   ]
 })
 
-export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestroy, AfterViewInit {
+export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
     private subscriptions = new Subscription();
     @Input() formControl: FormControl;
@@ -29,14 +29,21 @@ export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestr
     @Input() readonly = false;
 
     @ViewChild(FormControlDirective, {static: true})  formControlDirective: FormControlDirective;
-
     @Input('value') _value;
 
     constructor(private injector: Injector,
                 private controlContainer: ControlContainer,
                 private formService: FormService) { }
 
-    ngAfterViewInit(): void {
+    ngOnInit() {
+      this.subscriptions.add(this.formService.state$.subscribe(data => {
+        this.readonly = data === 'Read';
+        if (this.readonly) {
+          this.control.disable();
+        } else {
+          this.control.enable();
+        }
+      }));
 
       const ngControl: NgControl = this.injector.get(NgControl, null);
       if (ngControl) {
@@ -44,6 +51,10 @@ export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestr
       } else {
         // Component is missing form control binding
       }
+    }
+
+    get control() {
+      return this.formControl || this.controlContainer.control.get(this.formControlName);
     }
 
     get value() {
@@ -66,15 +77,6 @@ export class InputTextComponent implements ControlValueAccessor, OnInit, OnDestr
       }
     }
 
-    get control() {
-      return this.formControl || this.controlContainer.control.get(this.formControlName);
-    }
-
-    ngOnInit() {
-      this.subscriptions.add(this.formService.state$.subscribe(data => {
-        this.readonly = data === 'Read';
-      }));
-    }
 
     ngOnDestroy(): void {
       this.subscriptions.unsubscribe();

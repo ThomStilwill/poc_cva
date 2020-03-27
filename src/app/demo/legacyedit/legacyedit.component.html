@@ -7,7 +7,11 @@
   (submitForm)="onSubmit($event)"
   (resetForm)="onReset($event)" > -->
 
-  <!-- [ngModelOptions]="{standalone: true}" -->
+  <button mat-button type="button"  title="Readonly" (click)="setState()">
+    <i class="material-icons">{{readonly?"Read":"Edit"}}</i>
+  </button>
+
+
 
   <input-text
     [(ngModel)]="model.name"
@@ -18,12 +22,14 @@
 
   <input-text
     [(ngModel)]='model.description'
+    name="description"
     label="Description"
     placeholder="any description will do...">
   </input-text>
 
   <input-select
     [(ngModel)]='model.make'
+    name="make"
     [items]="makes"
     label="Makes"
     placeholder="- select a make -">

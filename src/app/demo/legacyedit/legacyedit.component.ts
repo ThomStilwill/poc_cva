@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SelectItem } from 'src/app/shared/models/select-item';
-import { FormBuilder } from '@angular/forms';
 import { DemoModel } from '../models/demomodel';
+import { FormService } from 'src/app/shared/services/form-service';
 
 @Component({
   selector: 'app-legacyedit',
@@ -10,6 +10,7 @@ import { DemoModel } from '../models/demomodel';
 })
 export class LegacyeditComponent implements OnInit {
   model: DemoModel;
+  @Input() readonly = false;
 
   makes: SelectItem[] = [
     {value: 'ford', viewValue: 'Ford'},
@@ -23,7 +24,7 @@ export class LegacyeditComponent implements OnInit {
     {value: 'lory', viewValue: 'Truck'},
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private formService: FormService) {
 
     this.initModel();
    }
@@ -32,6 +33,12 @@ export class LegacyeditComponent implements OnInit {
 
   initModel() {
     this.model = new DemoModel('Carroll Shelby', 'Designer of the AC Cobra.', null, null, true);
+  }
+
+
+  setState() {
+    this.readonly = !this.readonly;
+    this.formService.setState(this.readonly ? 'Read' : 'Edit');
   }
 
   reset() {
