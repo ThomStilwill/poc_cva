@@ -2,6 +2,7 @@ import { Directive, OnDestroy, Input, TemplateRef, ViewContainerRef, OnInit } fr
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
+import { Role } from '../_models/role';
 
 @Directive({
   selector: '[auth]'
@@ -23,18 +24,16 @@ export class AuthorizationDirective implements OnDestroy, OnInit {
         takeUntil(this.stop$)
       )
       .subscribe(user => {
-      // If he doesn't have any roles, we clear the viewContainerRef
-        let role;
-        if (user) {
-          role = user.role.toLocaleLowerCase();
-        } else {
+        // If he doesn't have any roles, we clear the viewContainerRef
+        if (!user) {
           this.viewContainer.clear();
         }
 
-        const requiredRole = this.auth.toLocaleLowerCase();
+        const requiredRole = this.auth;
         // If the user has the role needed to
         // render this component we can add it
-        if (requiredRole === role) {
+        const role = (Role)[requiredRole];
+        if (user.roles.includes(role)) {
           // If it is already visible (which can happen if
         // his roles changed) we do not need to add it a second time
 

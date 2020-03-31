@@ -11,11 +11,11 @@ import { SharedModule } from './shared/shared.module';
 import { SecurityModule } from './security/security.module';
 import { DemoModule } from './demo/demo.module';
 
-import { HomeComponent } from './home/home.component';
-import { SecureComponent } from './secure/secure.component';
+import { HomeComponent } from './views/home/home.component';
+import { SecureComponent } from './views/secure/secure.component';
 
-import { WelcomeComponent } from './welcome/welcome.component';
-import { LoginComponent } from './login/login.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LoginComponent } from './views/login/login.component';
 import { UserComponent } from './user/user.component';
 
 import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
@@ -44,11 +44,6 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
     SecurityModule.forRoot(),
     SharedModule.forRoot()
   ],
-  // providers: [AuthenticationService, UserService,
-  //   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-  //   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  //   fakeBackendProvider
-  // ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

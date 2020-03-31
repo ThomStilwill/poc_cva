@@ -4,7 +4,8 @@
 <a [routerLink]="['home']" routerLinkActive="active-link">Home</a>
 <a [routerLink]="['demo']" >Demo</a>
 <a [routerLink]="['user']" >User</a>
-<a [routerLink]="['admin']" >Secure Page</a>
+<a [routerLink]="['admin']" >Admin</a>
+<a [routerLink]="['admin']" *auth="'Admin'">Super</a>
 <br/>
 <hr/>
 <router-outlet></router-outlet>

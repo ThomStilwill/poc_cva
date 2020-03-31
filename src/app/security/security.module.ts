@@ -6,20 +6,23 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { fakeBackendProvider } from './_helpers/fake-backend';
 
 import { AuthenticationService } from './services/authentication.service';
+import { AuthorizationService } from './services/authorization.service';
+
 import { UserService } from './services/user.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthorizationDirective } from './directives/authorization.directive';
 
 @NgModule({
   declarations: [
-
+    AuthorizationDirective
   ],
   exports: [
-
+    AuthorizationDirective
     ],
   imports: [
     CommonModule,
   ],
-  providers: [AuthenticationService, UserService,
+  providers: [AuthenticationService, AuthorizationService, UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     fakeBackendProvider

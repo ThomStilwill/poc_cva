@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../security/services/authentication.service';
+import { AuthenticationService } from '../../security/services/authentication.service';
 import { first } from 'rxjs/operators';
 import { delay } from 'rxjs/internal/operators';
 
