@@ -33,6 +33,10 @@ export class AuthorizationDirective implements OnDestroy, OnInit {
         // If the user has the role needed to
         // render this component we can add it
         const role = (Role)[requiredRole];
+        if (!role) {
+          throw new Error('Invalid role in auth directive.');
+        }
+
         if (user.roles.includes(role)) {
           // If it is already visible (which can happen if
         // his roles changed) we do not need to add it a second time
