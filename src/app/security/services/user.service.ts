@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { APP_CONFIG, AppConfig } from '../app-config.module';
+import { APP_CONFIG, AppConfig } from '../../app-config.module';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../_models/user';
 
