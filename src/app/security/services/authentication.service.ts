@@ -12,6 +12,7 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
 
     private storageKey = 'currentUser';
+    private encode = true;
 
     constructor(private http: HttpClient,
                 private storage: StorageService,
@@ -25,7 +26,7 @@ export class AuthenticationService {
     }
 
     private getUser(): User {
-      const userData = localStorage.getItem(this.storageKey);
+      const userData = this.storage.getItem(this.storageKey, this.encode);
       return JSON.parse(userData);
     }
 
@@ -35,7 +36,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     const userData = JSON.stringify(user);
-                    this.storage.setItem(this.storageKey, userData);
+                    this.storage.setItem(this.storageKey, userData, this.encode);
                     this.currentUserSubject.next(user);
                 }
                 return user;
