@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
-import { JsonPipe } from '@angular/common';
+import { StorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -14,6 +14,7 @@ export class AuthenticationService {
     private storageKey = 'currentUser';
 
     constructor(private http: HttpClient,
+                private storage: StorageService,
                 @Inject(APP_CONFIG) private config: AppConfig) {
         this.currentUserSubject = new BehaviorSubject<User>(this.getUser());
         this.currentUser = this.currentUserSubject.asObservable();
@@ -24,11 +25,7 @@ export class AuthenticationService {
     }
 
     private getUser(): User {
-      let userData = null;
-      const encodedUserData = localStorage.getItem(this.storageKey);
-      if (encodedUserData) {
-        userData = btoa(encodedUserData);
-      }
+      const userData = localStorage.getItem(this.storageKey);
       return JSON.parse(userData);
     }
 
@@ -38,8 +35,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     const userData = JSON.stringify(user);
-                    const encodedUserData = atob(userData);
-                    localStorage.setItem(this.storageKey, encodedUserData);
+                    this.storage.setItem(this.storageKey, userData);
                     this.currentUserSubject.next(user);
                 }
                 return user;
@@ -48,7 +44,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem(this.storageKey);
+        this.storage.removeItem(this.storageKey);
         this.currentUserSubject.next(null);
     }
 }

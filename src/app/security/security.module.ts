@@ -11,6 +11,7 @@ import { AuthorizationService } from './services/authorization.service';
 import { UserService } from './services/user.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationDirective } from './directives/authorization.directive';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,13 @@ import { AuthorizationDirective } from './directives/authorization.directive';
   imports: [
     CommonModule,
   ],
-  providers: [AuthenticationService, AuthorizationService, UserService,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    fakeBackendProvider
+  providers: [AuthenticationService,
+              AuthorizationService,
+              UserService,
+              StorageService,
+              { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+              fakeBackendProvider
   ],
 })
 export class SecurityModule {
