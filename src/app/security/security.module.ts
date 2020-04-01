@@ -1,9 +1,9 @@
 import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { JwtInterceptor } from './_helpers/jwt.interceptor';
-import { ErrorInterceptor } from './_helpers/error.interceptor';
-import { fakeBackendProvider } from './_helpers/fake-backend';
+import { JwtInterceptor } from './providers/jwt.interceptor';
+import { ErrorInterceptor } from './providers/error.interceptor';
+import { fakeBackendProvider } from './providers/fake-backend';
 
 import { AuthenticationService } from './services/authentication.service';
 import { AuthorizationService } from './services/authorization.service';

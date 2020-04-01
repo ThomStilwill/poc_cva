@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { StringToEnum } from './type.helpers';
-import { Role } from '../_models/role';
+import { Role } from '../models/role';
 
 describe('Type Helpers', () => {
   beforeEach(async(() => {
