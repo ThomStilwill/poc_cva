@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../security/services/authentication.service';
@@ -15,8 +15,7 @@ export class WelcomeComponent {
 
   constructor(
       private router: Router,
-      private authenticationService: AuthenticationService
-  ) {
+      private authenticationService: AuthenticationService ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -24,5 +23,4 @@ export class WelcomeComponent {
       this.authenticationService.logout();
       this.router.navigate(['login']);
   }
-
 }

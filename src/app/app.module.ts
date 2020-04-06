@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NgModuleRef } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -16,11 +16,12 @@ import { SecureComponent } from './views/secure/secure.component';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginComponent } from './views/login/login.component';
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './views/user/user.component';
 
 import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
-
+import { SecurityService } from './services/security.service';
+import { SERVICE_INTERFACE } from './security/services/security-service.interface';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,14 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
     AppRoutingModule,
     SecurityModule.forRoot(),
     SharedModule.forRoot()
+  ],
+  providers: [
+    {
+      provide: SERVICE_INTERFACE,
+      useFactory: () => {
+          return new SecurityService();
+      }
+  }
   ],
   bootstrap: [AppComponent]
 })

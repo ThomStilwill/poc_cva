@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationDirective } from './directives/authorization.directive';
 import { StorageService } from './services/storage.service';
 
+
 @NgModule({
   declarations: [
     AuthorizationDirective
@@ -42,7 +43,10 @@ export class SecurityModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SecurityModule,
-      providers: [ AuthenticationService, UserService, fakeBackendProvider ]
+      providers: [
+        AuthenticationService,
+        UserService,
+        fakeBackendProvider ]
     };
   }
  }

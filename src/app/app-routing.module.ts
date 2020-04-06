@@ -5,7 +5,7 @@ import { SecureComponent } from './views/secure/secure.component';
 import { AuthGuard } from './security/guards/auth.guard';
 import { Role } from './security/models/role';
 import { LoginComponent } from './views/login/login.component';
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './views/user/user.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
 

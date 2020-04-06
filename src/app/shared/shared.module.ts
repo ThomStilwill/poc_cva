@@ -20,26 +20,26 @@ import { InputCheckboxComponent } from './components/input-checkbox.component';
     FormsModule
   ],
   providers: [
-                FormService,
-              ],
+    FormService,
+  ],
   declarations: [
-                 InputTextComponent,
-                 InputSelectComponent,
-                 InputRadioComponent,
-                 InputCheckboxComponent,
-                 ValidationMessagesComponent,
-                 ControlStatusComponent,
-                 FormComponent,
-                 FormstateComponent
-                 ],
+    InputTextComponent,
+    InputSelectComponent,
+    InputRadioComponent,
+    InputCheckboxComponent,
+    ValidationMessagesComponent,
+    ControlStatusComponent,
+    FormComponent,
+    FormstateComponent
+  ],
   exports: [
-            InputTextComponent,
-            InputSelectComponent,
-            InputRadioComponent,
-            InputCheckboxComponent,
-            ValidationMessagesComponent,
-            FormComponent
-          ]
+    InputTextComponent,
+    InputSelectComponent,
+    InputRadioComponent,
+    InputCheckboxComponent,
+    ValidationMessagesComponent,
+    FormComponent
+  ]
 })
 export class SharedModule {
 
