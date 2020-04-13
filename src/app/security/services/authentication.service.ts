@@ -17,6 +17,8 @@ export class AuthenticationService {
     constructor(private http: HttpClient,
                 private storage: StorageService,
                 @Inject(APP_CONFIG) private config: AppConfig) {
+
+
         this.currentUserSubject = new BehaviorSubject<User>(this.getUser());
         this.currentUser = this.currentUserSubject.asObservable();
     }

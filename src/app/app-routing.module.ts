@@ -9,7 +9,7 @@ import { UserComponent } from './views/user/user.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { NotAuthorizedComponent } from './views/not-authorized/not-authorized.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'admin', component: SecureComponent,
                   canActivate: [AuthGuard],
                   data: { roles: [Role.Admin] } },
